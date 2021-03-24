@@ -1,45 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:todolist/Model/Tasks.dart';
+class TodoTile extends StatelessWidget {
+final String task;
+final bool checkboxstatus;
+final Function toggler;
+TodoTile({this.checkboxstatus,this.task,this.toggler});
 
-class TodoTile extends StatefulWidget {
-
-
-
-  @override
-  _TodoTileState createState() => _TodoTileState();
-}
-
-class _TodoTileState extends State<TodoTile> {
-  bool tick = false;
   @override
   Widget build(BuildContext context) {
     return ListTile(
 
-      title: Text("hello",
+      title: Text(task,
         style: TextStyle(
-          decoration: tick ?TextDecoration.lineThrough:null ,
+          decoration: checkboxstatus ?TextDecoration.lineThrough:null ,
         ),
       ),
-      trailing: TodoCheckBox(tick: tick,todocallback: (newTick){
-        setState(() {
-          tick = newTick;
-        });
-      },),
+      trailing:Checkbox(
+        value: checkboxstatus,
+        onChanged: toggler,
+      ) ,
 
     );
   }
 }
 
-class TodoCheckBox extends StatelessWidget {
-  final bool tick ;
-  final Function todocallback;
- TodoCheckBox({this.tick,this.todocallback
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Checkbox(
-      value: tick,
-      onChanged: todocallback,
-    );
-  }
-}
